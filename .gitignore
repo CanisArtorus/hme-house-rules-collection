@@ -102,3 +102,34 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Visual Studio
+.vscode/
+*.code-workspace
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Build files
+build/
+
+# Distrubution files
+dist/
+
+# Package builds
+package/
+
+# Hidden files
+nogit/
+
+# Foundry Project Creator config file
+foundryconfig.json
