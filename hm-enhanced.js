@@ -17,7 +17,7 @@ class HMEnhanced {
 			// add some default data
 
 			// Replace overridden methods
-
+			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
 		}
 
 		ready() {}
