@@ -3,6 +3,8 @@ import { HMEItem } from './modules/hme-item.js';
 import { DiceHME } from './modules/hme-dice.js';
 import { FurnacePatching } from './modules/Patches.js';
 
+import { registerExtraSystemSettings } from './settings.js';
+
 class HMEnhanced {
 		constructor() {
 			Hooks.on('init', this.init.bind(this));
@@ -10,6 +12,8 @@ class HMEnhanced {
 		}
 
 		init() {
+			// get the additional settings. Many will need re-load to apply.
+			registerExtraSystemSettings();
 			// add some default data
 
 			// Replace overridden methods
