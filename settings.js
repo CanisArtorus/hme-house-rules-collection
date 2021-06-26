@@ -245,6 +245,15 @@ export const registerExtraSystemSettings = function() {
 		}
 	});
 
+	game.settings.register('hm3', 'unencSenses', {
+		name: "Un-Encumbered Senses",
+		hint: "Set true to make Eyesight, Hearing, and Smell be affected by only Universal Penalty instead of full Physical Penalty.",
+		scope: "world",
+		config: true,
+		default: false,
+		type: Boolean
+	});
+
 	game.settings.register('hm3', 'extremeEML', {
 		name: "Extreme EML Bonus",
 		hint: "Get extra chances at ciritcals when skill EML is truncated.",
