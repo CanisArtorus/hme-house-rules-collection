@@ -16,11 +16,17 @@ class HMEnhanced {
 			registerExtraSystemSettings();
 			// add some default data
 
-			// Replace overridden methods
+			// --- Replace overridden methods ---
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
+			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity);
+			FurnacePatching.replaceFunction(game.hm3.DiceHM3, '_calcInjury', DiceHME._calcInjury); // dice:518
+			FurnacePatching.replaceFunction(game.hm3.DiceHM3, 'createInjury', DiceHME.createInjury); // dice:409
+			FurnacePatching.replaceMethod(CONFIG.Combat.documentClass, 'checkWeaponBreak', DiceHME.checkWeaponBreak);	// combat:1080
 
+			//-----
 			// Patch slightly modified methods
 			// XXX line numbers change with any revision to the source code!!!
+			//-----
 			// Maybe change penalty to some stats
 			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 550 - 542,
 				"data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
@@ -51,6 +57,28 @@ class HMEnhanced {
 				"itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);",
 				"if(! game.settings.get('hm3', 'extremeEML') { itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);}"
 			);
+			FurnacePatching.patchmethod(CONFIG.Combat.documentClass, 'blockResume', 952 - 857,
+				"effDML = Math.max(Math.round(effDML/2), 5);",
+				"effDML = effDML >= 0 ? Math.round(effDML/2) : effDML * 2;"
+			);
+			// And then do the critical determination
+			FurnacePatching.patchMethod(game.hm3.DiceHM3, 'rollTest', 1195 - 1184,
+				"let isCrit = (roll.total % 5) === 0;",
+				"let isCrit = (roll.total % 5) === 0 || (targetNum > 100 && roll.total <= targetNum -100 ) || (targetNum < 0 && roll.total >= 100 + targetNum) ;"
+			);
+			// Aim zones
+			// Make allowed choice in dialog boxes
+			if  (['arms', 'hmg'] includes game.settings.get('hm3', 'meleeStrikeZones')) {
+				FurnacePatching.patchMethod(CONFIG.Combat.documentClass, 'attackDialog', 358 - 338,
+					"aimLocations: ['Low', 'Mid', 'High'],",
+					"aimLocations: ['Low', 'Mid', 'Arms', 'High'],"
+				);
+			// } else if  (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') {
+			// 	FurnacePatching.patchMethod(CONFIG.Combat.documentClass, 'attackDialog', 358 - 338,
+			// 		"aimLocations: ['Low', 'Mid', 'High'],",
+			// 		"aimLocations: ['Low', 'Mid', 'High'],"
+			// 	);
+			}
 		}
 
 		ready() {}
@@ -116,7 +144,7 @@ Hooks.on('hm3.preHealingRoll', (stdRollData, actor, injury) => {
 
 Hooks.on('hm3.preShockRoll', (stdRollData, actor) => {
 		// change number of dice
-		
+
 		game.hm3.DiceHM3.d6StdRoll(stdRollData).then(resut => {
 			// always run custom display macros
 			actor.runCustomMacro(result);
