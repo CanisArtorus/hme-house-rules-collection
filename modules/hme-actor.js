@@ -13,6 +13,7 @@ class HMEActor {
 					} else if (result.sdrIncr === 1) {
 						// is a base skill, so inherit it
 						await skillSplash(actor, item);
+						result.notes += "\nAll specialties of this skill also gain 1 ML.";
 					} else {
 						// is specialty
 						await item.update({
@@ -27,7 +28,10 @@ class HMEActor {
 							const subsequent = await game.hm3.DiceHM3.sdrRoll(generalSkill.data);
 							if (subsequent?.sdrIncr) {
 								await skillSplash(actor, generalSkill);
+								subsequent.notes += "\nAll specialties of this skill also gain 1 ML.";
 							}
+						} else {
+							result.notes += "\nHouse rule says specialties only gain 1 ML.";
 						}
 					}
         } else {
