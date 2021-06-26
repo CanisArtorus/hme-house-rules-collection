@@ -190,7 +190,7 @@ export const registerExtraSystemSettings = function() {
 
 	game.settings.register('hm3', 'missileStrikeZones', {
 		name: "Missile Strike Aim Zone Tables",
-		hint: "How to select a random impact location for a rnaged attack",
+		hint: "How to select a random impact location for a ranged attack",
 		scope: "world",
 		config: true,
 		default: "melee",
@@ -209,8 +209,8 @@ export const registerExtraSystemSettings = function() {
 		default: "ignore",
 		type: String,
 		choices: {
-			"ignore": "Do not generate any sub-locations on the Face (note: HMG makes Eyes not part of the Face).",
-			"descriptive": "Generate specific injuries on the face, but only as a desrciption.",
+			"ignore": "Do not generate any sub-locations on the Face.",
+			"descriptive": "Generate specific injuries on the face, but only as a description.",
 			"eyes": "Also force Eyes to be weak to Piercing attacks (HME's suggestion). Other face parts are descriptive.",
 			"coverage": "They are separate locations, with different armour coverage, and special damage effect (Intensive)"
 		}
