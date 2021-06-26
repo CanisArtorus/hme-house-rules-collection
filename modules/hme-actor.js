@@ -1,5 +1,5 @@
 
-class HMEActor {
+export class HMEActor {
 	static async skillDevRoll(item, actor = this) {
         const result = await game.hm3.DiceHM3.sdrRoll(item.data);
 

@@ -2,6 +2,7 @@ import { HMEActor } from './modules/hme.actor.js';
 import { HMEItem } from './modules/hme-item.js';
 import { DiceHME } from './modules/hme-dice.js';
 import { FurnacePatching } from './modules/Patches.js';
+import { Tables } from './data-lut.js';
 
 import { registerExtraSystemSettings } from './settings.js';
 
@@ -14,14 +15,17 @@ class HMEnhanced {
 		init() {
 			// get the additional settings. Many will need re-load to apply.
 			registerExtraSystemSettings();
-			// add some default data
-
+			// add / change some default data
+			if (game.settings.get('hm3', 'meleeStrikeZones') === 'arms') injectLocations(Tables.arms_zone);
+			else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hm3[il.impactType]);
+			else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hmg') game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hmg[il.impactType]);
+			game.hm3.config.injuryLocations.forEach(il => il.missileWeight = Tables.aimz_missile[il.impactType]);
 			// --- Replace overridden methods ---
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity);
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, '_calcInjury', DiceHME._calcInjury); // dice:518
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, 'createInjury', DiceHME.createInjury); // dice:409
-			FurnacePatching.replaceMethod(CONFIG.Combat.documentClass, 'checkWeaponBreak', DiceHME.checkWeaponBreak);	// combat:1080
+			FurnacePatching.replaceMethod(CONFIG.Combat.documentClass, 'checkWeaponBreak', HMEItem.checkWeaponBreak);	// combat:1080
 
 			//-----
 			// Patch slightly modified methods
