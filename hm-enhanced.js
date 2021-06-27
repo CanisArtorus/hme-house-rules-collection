@@ -16,10 +16,15 @@ class HMEnhanced {
 			// get the additional settings. Many will need re-load to apply.
 			registerExtraSystemSettings();
 			// add / change some default data
-			if (game.settings.get('hm3', 'meleeStrikeZones') === 'arms') injectLocations(Tables.arms_zone);
-			else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hm3[il.impactType]);
-			else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hmg') game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hmg[il.impactType]);
-			game.hm3.config.injuryLocations.forEach(il => il.missileWeight = Tables.aimz_missile[il.impactType]);
+			// strike zone aim tables
+			if (game.settings.get('hm3', 'meleeStrikeZones') === 'arms') {
+				game.hm3.config.injuryLocations.forEach(il => foundry.utils.mergeObject(il.probWeight, {"arms": Tables.arms_zone[il.impactType]}));
+			} else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') {
+				game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hm3[il.impactType]);
+			} else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hmg') {
+				game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hmg[il.impactType]);
+			}
+			game.hm3.config.injuryLocations.forEach(il => foundry.utils.mergeObject(il.probWeight, Tables.aimz_missile[il.impactType]));
 			// --- Replace overridden methods ---
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity);
@@ -72,17 +77,22 @@ class HMEnhanced {
 			);
 			// Aim zones
 			// Make allowed choice in dialog boxes
-			if  (['arms', 'hmg'] includes game.settings.get('hm3', 'meleeStrikeZones')) {
-				FurnacePatching.patchMethod(CONFIG.Combat.documentClass, 'attackDialog', 358 - 338,
-					"aimLocations: ['Low', 'Mid', 'High'],",
-					"aimLocations: ['Low', 'Mid', 'Arms', 'High'],"
-				);
-			// } else if  (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') {
-			// 	FurnacePatching.patchMethod(CONFIG.Combat.documentClass, 'attackDialog', 358 - 338,
-			// 		"aimLocations: ['Low', 'Mid', 'High'],",
-			// 		"aimLocations: ['Low', 'Mid', 'High'],"
-			// 	);
+			let source_line = "aimLocations: ['Low', 'Mid', 'High'],";
+			let aim_zones = ['Low', 'Mid', 'High'];
+			if  (['arms', 'hmg'].includes(game.settings.get('hm3', 'meleeStrikeZones'))) {
+				aim_zones.push('Arms');
+			} else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') {
+//				source_line = ;
 			}
+			if (game.settings.get('hm3', 'missileStrikeZones') !== 'melee') {
+				aim_zones.push('Low-Missile');
+				aim_zones.push('Mid-Missile');
+				aim_zones.push('High-Missile');
+			}
+			FurnacePatching.patchMethod(CONFIG.Combat.documentClass, 'attackDialog', 358 - 338,
+				source_line,
+				`aimLocations: ${aim_zones},`
+			);
 		}
 
 		ready() {}

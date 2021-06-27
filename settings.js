@@ -211,7 +211,8 @@ export const registerExtraSystemSettings = function() {
 		choices: {
 			"ignore": "Do not generate any sub-locations on the Face.",
 			"descriptive": "Generate specific injuries on the face, but only as a description.",
-			"eyes": "Also force Eyes to be weak to Piercing attacks (HME's suggestion). Other face parts are descriptive.",
+			"eyes_enhanced": "Also force Eyes to be weak to Piercing attacks (HME's suggestion). Other face parts are descriptive.",
+			"eyes_gold": "(HMGold style) Eyes act as a separate location. Other face parts are descriptive.",
 			"coverage": "They are separate locations, with different armour coverage, and special damage effect (Intensive)"
 		}
 	});
