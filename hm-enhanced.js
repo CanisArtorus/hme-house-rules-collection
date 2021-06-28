@@ -25,6 +25,7 @@ class HMEnhanced {
 				game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hmg[il.impactType]);
 			}
 			game.hm3.config.injuryLocations.forEach(il => foundry.utils.mergeObject(il.probWeight, Tables.aimz_missile[il.impactType]));
+
 			// --- Replace overridden methods ---
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity);
@@ -75,8 +76,7 @@ class HMEnhanced {
 				"let isCrit = (roll.total % 5) === 0;",
 				"let isCrit = (roll.total % 5) === 0 || (targetNum > 100 && roll.total <= targetNum -100 ) || (targetNum < 0 && roll.total >= 100 + targetNum) ;"
 			);
-			// Aim zones
-			// Make allowed choice in dialog boxes
+			// Aim zones: Make allowed choice in dialog boxes
 			let source_line = "aimLocations: ['Low', 'Mid', 'High'],";
 			let aim_zones = ['Low', 'Mid', 'High'];
 			if  (['arms', 'hmg'].includes(game.settings.get('hm3', 'meleeStrikeZones'))) {
@@ -93,6 +93,7 @@ class HMEnhanced {
 				source_line,
 				`aimLocations: ${aim_zones},`
 			);
+			//
 		}
 
 		ready() {}

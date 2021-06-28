@@ -21,9 +21,17 @@ export class HMEActor {
 							"data.masteryLevel": item.data.data.masteryLevel + 1
 						});
 						if (spType === "splash") {
-							// fetch root skill to splash
-							const superName = item.data.name.split("[")[0];
-							const generalSkill = actor.items.get(superName);
+							// fetch root skill to splash - without assuming format
+							const mixedName = item.data.name.match(/\(([^\)]+)\)/);
+							const generalSkill = null;
+							actor.items.forEach(it => {
+								if (['skill', 'spell', 'invocation', 'psionic'].includes(it.data.type)) {
+									if (mixedName.includes(it.data.name)) {
+										generalSkill = it;
+										break;
+									}
+								}
+							});
 							// provide bonus roll
 							const subsequent = await game.hm3.DiceHM3.sdrRoll(generalSkill.data);
 							if (subsequent?.sdrIncr) {
@@ -41,11 +49,15 @@ export class HMEActor {
         return result;
     }
 
+		/**
+		 *	Improve the skill `item`, and all Specializations of it in `actor` also
+		 */
 	static async skillSplash(actor, item) {
-		const testPrefix = item.data.name + "[";
+		const testName = item.data.name;
 		actor.items.forEach(it => {
-			if (it.data.type === 'skill') {
-				if (it.data.name.startsWith(testPrefix)) {
+			if (['skill', 'spell', 'invocation', 'psionic'].includes((it.data.type)) {
+				let testSpec = it.data.name.match(/\(([^\)]+)\)/);
+				if (testSpec?.includes(testName)) {
 					await it.update({"data.masteryLevel": it.data.data.masteryLevel + 1});
 				}
 			}
@@ -55,4 +67,5 @@ export class HMEActor {
 			"data.masteryLevel": item.data.data.masteryLevel + 1
 		});
 	}
+
 }
