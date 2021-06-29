@@ -2,10 +2,10 @@ export const registerExtraSystemSettings = function() {
 
 	game.settings.register('hm3', 'generalInjury', {
 		name: "Whole Body damage",
-		hint: "Adds a generalized damage zone, for blast and fall damage",
+		hint: "Adds generalized damage zones, for blast and fall damage",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -15,12 +15,12 @@ export const registerExtraSystemSettings = function() {
 		hint: "Choose the way injuries are generated.",
 		scope: "world",
 		config: true,
-		default: "hm3",
+		default: "enhanced",
 		type: String,
 		choices: {
-			"hm3": "The simple bands of HarnMaster 3 (or Gold, if you have that installed)",
-			"hmg": "Force differences per damage type, from Harnmaster Gold.",
-			"hme": "The impact point-specific table in Fannon 'HarnMaster Enhanced'.",
+			"base": "The simple bands of HarnMaster 3 (or Gold, if you have that installed)",
+			"gold": "Force differences per damage type, from Harnmaster Gold.",
+			"enhanced": "The impact point-specific table in Fannon 'HarnMaster Enhanced'.",
 			"artorus": "'HarnMaster Enhanced' with more vulnerable necks and groins."
 		}
 	});
@@ -30,7 +30,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Adds columns beyond 30 impact",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -48,7 +48,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Makes bleeding wounds come in various sizes.",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -58,7 +58,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Which type of Shock roll to use. mostly changes the chance to faint from accumulated wounds.",
 		scope: "world",
 		config: true,
-		default: "default",
+		default: "mixed",
 		type: String,
 		choices: {
 			"deadly": "Full accumulation of dice, normal for HM3.",
@@ -73,7 +73,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Do injuries make Stumble rolls harder?",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -82,7 +82,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Do injuries make Fumble rolls harder?",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -91,7 +91,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Do Fumble Rolls come in different sizes?",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -100,7 +100,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Do Stumble Rolls come in different sizes?",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -109,7 +109,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Adds a near-succeed effect to stumbles",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -118,7 +118,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Adds a near-succeed effect to fumbles",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -127,7 +127,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Adds Stun on near-succeed shock roll",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -136,7 +136,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Adds Comas for barely-failed Kill rolls.",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -145,7 +145,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Applies Cripple on only-just-amputated results.",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -154,7 +154,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Makes all high impact strikes Stun.",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -163,7 +163,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "How fast does Bloodloss progress?",
 		scope: "world",
 		config: true,
-		default: "minutes",
+		default: "rounds",
 		type: String,
 		choices: {
 			"minutes": "Takes minutes, drop dead.",
@@ -193,7 +193,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "How to select a random impact location for a ranged attack",
 		scope: "world",
 		config: true,
-		default: "melee",
+		default: "missile",
 		type: String,
 		choices: {
 			"melee": "Use the Melee Strike Zone Table, as choosen above",
@@ -206,12 +206,12 @@ export const registerExtraSystemSettings = function() {
 		hint: "How independant and important are the parts of the face?",
 		scope: "world",
 		config: true,
-		default: "ignore",
+		default: "descriptive",
 		type: String,
 		choices: {
 			"ignore": "Do not generate any sub-locations on the Face.",
 			"descriptive": "Generate specific injuries on the face, but only as a description.",
-			"eyes_enhanced": "Also force Eyes to be weak to Piercing attacks (HME's suggestion). Other face parts are descriptive.",
+			"eyes_weak": "Also force Eyes to be weak to Piercing attacks. Other face parts are descriptive.",
 			"eyes_gold": "(HMGold style) Eyes act as a separate location. Other face parts are descriptive.",
 			"coverage": "They are separate locations, with different armour coverage, and special damage effect (Intensive)"
 		}
@@ -237,7 +237,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "How do Skill Development Rolls work for Specializations?",
 		scope: "world",
 		config: true,
-		default: "double",
+		default: "splash",
 		type: String,
 		choices: {
 			"double": "Specialty gets two points from itself, none from general.",
@@ -260,16 +260,16 @@ export const registerExtraSystemSettings = function() {
 		hint: "Get extra chances at ciritcals when skill EML is truncated.",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
 	game.settings.register('hm3', 'smallStealth', {
-		name: "Size modifier to Stealth",
+		name: "[NYI]Size modifier to Stealth",
 		hint: "Do small things inherently hide easier than big ones?",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
