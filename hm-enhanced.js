@@ -24,48 +24,51 @@ class HMEnhanced {
 			} else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hmg') {
 				game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hmg[il.impactType]);
 			}
-			game.hm3.config.injuryLocations.forEach(il => foundry.utils.mergeObject(il.probWeight, Tables.aimz_missile[il.impactType]));
+			if (game.hm3.settings.get('hm3', 'missileStrikeZones') === "missile") {
+				game.hm3.config.injuryLocations.forEach(il => foundry.utils.mergeObject(il.probWeight, Tables.aimz_missile[il.impactType]));
+			}
 
 			// --- Replace overridden methods ---
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
-			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity);
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, '_calcInjury', DiceHME._calcInjury); // dice:518
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, 'createInjury', DiceHME.createInjury); // dice:409
 			FurnacePatching.replaceMethod(CONFIG.Combat.documentClass, 'checkWeaponBreak', HMEItem.checkWeaponBreak);	// combat:1080
+			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", DiceHME.calcInjurySeverity); // item:311
 
-			//-----
-			// Patch slightly modified methods
-			// XXX line numbers change with any revision to the source code!!!
-			//-----
+			/** -----
+			 * Patch slightly modified methods
+			 * N.B. line numbers may change as the function is modified (must work from end to front)!
+			 * XXX line numbers change with any revision to the source code!!!
+			 * ----- */
 			// Maybe change penalty to some stats
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 550 - 542,
-				"data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
-				"data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
+			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 552 - 542,
+				"data.abilities.smell.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
+				"data.abilities.smell.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
 			);
 			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 551 - 542,
 				"data.abilities.hearing.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
 				"data.abilities.hearing.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
 			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 552 - 542,
-				"data.abilities.smell.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
-				"data.abilities.smell.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
+			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 550 - 542,
+				"data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
+				"data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
 			);
 			// Need to defer ALL the widespread cases of EML trimming
 			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "prepareDerivedData", 358 - 291,
 				"if (['skill', 'spell', 'invocation', 'psionic'].includes(itemData.type)) {",
 				"if (['skill', 'spell', 'invocation', 'psionic'].includes(itemData.type) && ! game.settings.get('hm3', 'extremeEML')) {"
 			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 591 - 569,
-				"itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel, 5);",
-				"if(! game.settings.get('hm3', 'extremeEML') { itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel, 5); }"
+			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 619 - 569,
+				"itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);",
+				"if(! game.settings.get('hm3', 'extremeEML') { itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);}"
 			);
 			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 618 - 569,
 				"itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel || 5, 5);",
 				"if(! game.settings.get('hm3', 'extremeEML') { itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel || 5, 5);}"
 			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 619 - 569,
-				"itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);",
-				"if(! game.settings.get('hm3', 'extremeEML') { itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);}"
+			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 591 - 569,
+				"itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel, 5);",
+				"if(! game.settings.get('hm3', 'extremeEML') { itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel, 5); }"
 			);
 			FurnacePatching.patchmethod(CONFIG.Combat.documentClass, 'blockResume', 952 - 857,
 				"effDML = Math.max(Math.round(effDML/2), 5);",

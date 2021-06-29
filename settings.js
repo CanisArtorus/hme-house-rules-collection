@@ -43,15 +43,6 @@ export const registerExtraSystemSettings = function() {
 		type: Boolean
 	});
 
-	game.settings.register('hm3', 'bleedingLevels', {
-		name: "Heavy Bleeders",
-		hint: "Makes bleeding wounds come in various sizes.",
-		scope: "world",
-		config: true,
-		default: true,
-		type: Boolean
-	});
-
 	// Injury resolution options
 	game.settings.register('hm3', 'variantShock', {
 		name: "Shock Roll variant",
@@ -88,7 +79,7 @@ export const registerExtraSystemSettings = function() {
 
 	game.settings.register('hm3', 'variableFumble', {
 		name: "Fumble Roll Table",
-		hint: "Do Fumble Rolls come in different sizes?",
+		hint: "Do Fumble Rolls come in different sizes? (Requires Limb Injuries)",
 		scope: "world",
 		config: true,
 		default: true,
@@ -97,7 +88,7 @@ export const registerExtraSystemSettings = function() {
 
 	game.settings.register('hm3', 'variableStumble', {
 		name: "Stumble Roll Table",
-		hint: "Do Stumble Rolls come in different sizes?",
+		hint: "Do Stumble Rolls come in different sizes? (Requires Limb Injuries)",
 		scope: "world",
 		config: true,
 		default: true,
@@ -151,7 +142,7 @@ export const registerExtraSystemSettings = function() {
 
 	game.settings.register('hm3', 'stunThreshold', {
 		name: "Auto-stun Threshold",
-		hint: "Makes all high impact strikes Stun.",
+		hint: "[NYI]Makes all high impact strikes Stun.",
 		scope: "world",
 		config: true,
 		default: true,
@@ -170,6 +161,15 @@ export const registerExtraSystemSettings = function() {
 			"stages": "Takes minutes, partial effects.",
 			"rounds": "Every combat round, partial effects (triple limit). Somewhat faster death on the field."
 		}
+	});
+
+	game.settings.register('hm3', 'bleedingLevels', {
+		name: "Heavy Bleeders",
+		hint: "Makes bleeding wounds come in various sizes. (Requires Bleeding, obviously)",
+		scope: "world",
+		config: true,
+		default: true,
+		type: Boolean
 	});
 
 	// Aim zone options
@@ -213,7 +213,7 @@ export const registerExtraSystemSettings = function() {
 			"descriptive": "Generate specific injuries on the face, but only as a description.",
 			"eyes_weak": "Also force Eyes to be weak to Piercing attacks. Other face parts are descriptive.",
 			"eyes_gold": "(HMGold style) Eyes act as a separate location. Other face parts are descriptive.",
-			"coverage": "They are separate locations, with different armour coverage, and special damage effect (Intensive)"
+			"coverage": "[NYI]They are separate locations, with different armour coverage, and special damage effect (Intensive)"
 		}
 	});
 
@@ -227,7 +227,7 @@ export const registerExtraSystemSettings = function() {
 		choices: {
 			"ignore": "There aren't any",
 			"descriptive": "Choose a finger, for visualisation",
-			"coverage": "They are separate locations, with different armour coverage (Intensive)."
+			"coverage": "[NYI]They are separate locations, with different armour coverage (Intensive)."
 		}
 	});
 
