@@ -21,7 +21,7 @@ export const registerExtraSystemSettings = function() {
 			"base": "The simple bands of HarnMaster 3 (or Gold, if you have that installed)",
 			"gold": "Force differences per damage type, from Harnmaster Gold.",
 			"enhanced": "The impact point-specific table in Fannon 'HarnMaster Enhanced'.",
-			"artorus": "'HarnMaster Enhanced' with more vulnerable necks and groins."
+			"artorus": "As 'HarnMaster Enhanced' with more vulnerable groins like HM1."
 		}
 	});
 

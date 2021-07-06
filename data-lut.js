@@ -21,3 +21,339 @@ Tables.subParts = {
 Tables.aimz_missile = {
 		"custom": {"high-missile": 1, "mid-missile": 1, "low-missile": 1}, "skull": {"high-missile": 150, "mid-missile": 30, "low-missile": 0}, "face": {"high-missile": 130, "mid-missile": 30, "low-missile": 0}, "neck": {"high-missile": 110, "mid-missile": 20, "low-missile": 0}, "shoulder": {"high-missile": 75, "mid-missile": 40, "low-missile": 0}, "upperarm": {"high-missile": 50, "mid-missile": 40, "low-missile": 10}, "elbow": {"high-missile": 20, "mid-missile": 15, "low-missile": 10}, "forearm": {"high-missile": 25, "mid-missile": 25, "low-missile": 25}, "hand": {"high-missile": 15, "mid-missile": 10, "low-missile": 25}, "thorax": {"high-missile": 140, "mid-missile": 190, "low-missile": 50}, "abdomen": {"high-missile": 60, "mid-missile": 190, "low-missile": 140}, "groin": {"high-missile": 10, "mid-missile": 10, "low-missile": 20}, "hip": {"high-missile": 15, "mid-missile": 60, "low-missile": 80}, "thigh": {"high-missile": 0, "mid-missile": 40, "low-missile": 125}, "knee": {"high-missile": 0, "mid-missile": 10, "low-missile": 40}, "calf": {"high-missile": 0, "mid-missile": 20, "low-missile": 65}, "foot": {"high-missile": 0, "mid-missile": 5, "low-missile": 15}, "wing": {"high-missile": 200, "mid-missile": 100, "low-missile": 0}, "tentacle": {"high-missile": 50, "mid-missile": 50, "low-missile": 0}, "tail": {"high-missile": 0, "mid-missile": 50, "low-missile": 200}
 };
+
+Tables.injuriesArtorus = {
+};
+
+Tables.injuriesEnhanced = {
+	"skull": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 4, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 0},
+			17: {"il": "G5", "shock": 5, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 1},
+			27: {"il": "G6", "shock": 5, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 1},
+			37: {"il": "G7", "shock": 5, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 1},
+			47: {"il": "G8", "shock": 5, 'f':0, 's':0, 'kill': 8, 'amp': 0, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "S3", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 1},
+			17: {"il": "G5", "shock": 3, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 1},
+			27: {"il": "G6", "shock": 3, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 1},
+			37: {"il": "G7", "shock": 3, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 1},
+			47: {"il": "G8", "shock": 3, 'f':0, 's':0, 'kill': 8, 'amp': 0, 'bleed': 1}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 4, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 0},
+			17: {"il": "G5", "shock": 5, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 1},
+			27: {"il": "G6", "shock": 5, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 1},
+			37: {"il": "G7", "shock": 5, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 1},
+			47: {"il": "G8", "shock": 5, 'f':0, 's':0, 'kill': 8, 'amp': 3, 'bleed': 1}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			17: {"il": "G5", "shock": 4, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 0},
+			27: {"il": "G6", "shock": 4, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 0},
+			37: {"il": "G7", "shock": 4, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 0},
+			47: {"il": "G8", "shock": 4, 'f':0, 's':0, 'kill': 8, 'amp': 0, 'bleed': 0}
+		}
+	},
+	"face": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 4, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			17: {"il": "G5", "shock": 4, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 1},
+			27: {"il": "G6", "shock": 4, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 1},
+			37: {"il": "G7", "shock": 4, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 1},
+			47: {"il": "G8", "shock": 4, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "S3", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			17: {"il": "G5", "shock": 3, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 1},
+			27: {"il": "G6", "shock": 3, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 1},
+			37: {"il": "G7", "shock": 3, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 1},
+			47: {"il": "G8", "shock": 3, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 1}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			17: {"il": "G5", "shock": 4, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 2},
+			27: {"il": "G6", "shock": 4, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 2},
+			37: {"il": "G7", "shock": 4, 'f':0, 's':0, 'kill': 6, 'amp': 3, 'bleed': 2},
+			47: {"il": "G8", "shock": 4, 'f':0, 's':0, 'kill': 7, 'amp': 4, 'bleed': 2}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			17: {"il": "G5", "shock": 4, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 0},
+			27: {"il": "G6", "shock": 4, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 0},
+			37: {"il": "G7", "shock": 4, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 0},
+			47: {"il": "G8", "shock": 4, 'f':0, 's':0, 'kill': 8, 'amp': 3, 'bleed': 0}
+		}
+	},
+	"neck": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "G4", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 3, 'f':0, 's':0, 'kill': 3, 'amp': 0, 'bleed': 0},
+			17: {"il": "G5", "shock": 4, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 1},
+			27: {"il": "G6", "shock": 4, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 1},
+			37: {"il": "G7", "shock": 4, 'f':0, 's':0, 'kill': 6, 'amp': 3, 'bleed': 1},
+			47: {"il": "G8", "shock": 4, 'f':0, 's':0, 'kill': 7, 'amp': 4, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "G4", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			13: {"il": "G4", "shock": 2, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 2},
+			17: {"il": "G5", "shock": 3, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 3},
+			27: {"il": "G6", "shock": 3, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 3},
+			37: {"il": "G7", "shock": 3, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 3},
+			47: {"il": "G8", "shock": 3, 'f':0, 's':0, 'kill': 8, 'amp': 0, 'bleed': 3}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			10: {"il": "G4", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 2},
+			13: {"il": "G4", "shock": 3, 'f':0, 's':0, 'kill': 4, 'amp': 0, 'bleed': 3},
+			17: {"il": "G5", "shock": 4, 'f':0, 's':0, 'kill': 5, 'amp': 4, 'bleed': 4},
+			27: {"il": "G6", "shock": 4, 'f':0, 's':0, 'kill': 6, 'amp': 5, 'bleed': 4},
+			37: {"il": "G7", "shock": 4, 'f':0, 's':0, 'kill': 7, 'amp': 6, 'bleed': 4},
+			47: {"il": "G8", "shock": 4, 'f':0, 's':0, 'kill': 8, 'amp': 7, 'bleed': 4}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 3, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			17: {"il": "G5", "shock": 4, 'f':0, 's':0, 'kill': 5, 'amp': 0, 'bleed': 0},
+			27: {"il": "G6", "shock": 4, 'f':0, 's':0, 'kill': 6, 'amp': 0, 'bleed': 0},
+			37: {"il": "G7", "shock": 4, 'f':0, 's':0, 'kill': 7, 'amp': 0, 'bleed': 0},
+			47: {"il": "G8", "shock": 4, 'f':0, 's':0, 'kill': 8, 'amp': 3, 'bleed': 0}
+		}
+	},
+	"shoulder": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			12: {"il": "S3", "shock": 1, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			15: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			20: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 3, 'amp': 0, 'bleed': 1},
+			30: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 4, 'amp': 3, 'bleed': 1},
+			40: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 5, 'amp': 4, 'bleed': 1},
+			50: {"il": "G8", "shock": 3, 'f':-1, 's':0, 'kill': 6, 'amp': 5, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			12: {"il": "S3", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			15: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			25: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			35: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			45: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "S3", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			20: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 3, 'amp': 0, 'bleed': 2},
+			30: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 4, 'amp': 0, 'bleed': 2},
+			40: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 5, 'amp': 3, 'bleed': 2},
+			50: {"il": "G8", "shock": 3, 'f':-1, 's':0, 'kill': 6, 'amp': 4, 'bleed': 2}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			23: {"il": "G5", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			33: {"il": "G6", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			43: {"il": "G7", "shock": 2, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0}
+		}
+	},
+	"upperarm": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			12: {"il": "S3", "shock": 1, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			15: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			25: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			35: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 3, 'bleed': 1},
+			45: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 4, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			12: {"il": "S3", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			15: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			25: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			35: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			45: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "S3", "shock": 1, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			17: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 4, 'bleed': 2},
+			27: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 5, 'bleed': 2},
+			37: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 6, 'bleed': 2},
+			47: {"il": "G8", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 7, 'bleed': 2}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 1, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			23: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			33: {"il": "G6", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			43: {"il": "G7", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0}
+		}
+	},
+	"elbow": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 0, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "S3", "shock": 1, 'f':5, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			14: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			17: {"il": "G4", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 3, 'bleed': 1},
+			27: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 4, 'bleed': 1},
+			37: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 5, 'bleed': 1},
+			47: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 6, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "S3", "shock": 2, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			15: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			25: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			35: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			45: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 1, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			17: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 5, 'bleed': 2},
+			27: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 6, 'bleed': 2},
+			37: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 7, 'bleed': 2},
+			47: {"il": "G8", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 8, 'bleed': 2}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			23: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			33: {"il": "G6", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			43: {"il": "G7", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0}
+		}
+	},
+	"forearm": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			12: {"il": "S3", "shock": 1, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			15: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			25: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 3, 'bleed': 1},
+			35: {"il": "G6", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 4, 'bleed': 1},
+			45: {"il": "G7", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 5, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			12: {"il": "S3", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			15: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			25: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			35: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			45: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S2", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			11: {"il": "S3", "shock": 1, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			17: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 4, 'bleed': 2},
+			27: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 5, 'bleed': 2},
+			37: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 6, 'bleed': 2},
+			47: {"il": "G8", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 7, 'bleed': 2}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			23: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			33: {"il": "G6", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			43: {"il": "G7", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0}
+		}
+	},
+	"hand": {
+		"Blunt": {
+			1: {"il": "M1", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "M1", "shock": 0, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			8: {"il": "S2", "shock": 0, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			10: {"il": "S3", "shock": 1, 'f':5, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			17: {"il": "G4", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 3, 'bleed': 1},
+			27: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 4, 'bleed': 1},
+			37: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 5, 'bleed': 1},
+			47: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 6, 'bleed': 1}
+		},
+		"Piercing": {
+			1: {"il": "M1", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			8: {"il": "S2", "shock": 0, 'f':2, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			10: {"il": "S3", "shock": 1, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			14: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			24: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			34: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1},
+			44: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 1}
+		},
+		"Edged": {
+			1: {"il": "M1", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 0, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			10: {"il": "S3", "shock": 1, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			12: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 3, 'bleed': 0},
+			16: {"il": "G5", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 5, 'bleed': 1},
+			26: {"il": "G6", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 6, 'bleed': 1},
+			36: {"il": "G7", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 7, 'bleed': 1},
+			46: {"il": "G8", "shock": 3, 'f':-1, 's':0, 'kill': 0, 'amp': 8, 'bleed': 1}
+		},
+		"Fire": {
+			1: {"il": "M1", "shock": 1, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			5: {"il": "S2", "shock": 1, 'f':3, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			9: {"il": "S3", "shock": 2, 'f':4, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			13: {"il": "G4", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			23: {"il": "G5", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			33: {"il": "G6", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0},
+			43: {"il": "G7", "shock": 2, 'f':-1, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0}
+		}
+	}
+};
