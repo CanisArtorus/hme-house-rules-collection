@@ -197,7 +197,8 @@ export const registerExtraSystemSettings = function() {
 		type: String,
 		choices: {
 			"melee": "Use the Melee Strike Zone Table, as choosen above",
-			"missile": "Use the Missile Zone tables in 'HarnMaster Enhanced'"
+			"missile": "Use the Missile Zone tables in 'HarnMaster Enhanced'",
+			"gold": "Fall through to HMGold's specialty missle aim override, or whatever else is installed"
 		}
 	});
 

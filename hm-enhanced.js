@@ -2,57 +2,38 @@ import { HMEActor } from './modules/hme.actor.js';
 import { HMEItem } from './modules/hme-item.js';
 import { DiceHME } from './modules/hme-dice.js';
 import { FurnacePatching } from './modules/Patches.js';
-import { Tables } from './data-lut.js';
+import { Tables } from './modules/data-lut.js';
 
 import { registerExtraSystemSettings } from './settings.js';
 
-class HMEnhanced {
-		constructor() {
-			Hooks.on('init', this.init.bind(this));
-			Hooks.on('ready', this.ready.bind(this));
-		}
+// re-enable listeners
+function reEnableListeners(sheet, html) {
+    html.find("*").off();
+    sheet.activateListeners(html);
+    // re-enable core listeners (for drag & drop)
+    //sheet._activateCoreListeners(html);
+}
 
-		init() {
+Hooks.once('init', async () =>  {
 			// get the additional settings. Many will need re-load to apply.
 			registerExtraSystemSettings();
-			// add / change some default data
-			// strike zone aim tables
-			if (game.settings.get('hm3', 'meleeStrikeZones') === 'arms') {
-				game.hm3.config.injuryLocations.forEach(il => foundry.utils.mergeObject(il.probWeight, {"arms": Tables.arms_zone[il.impactType]}));
-			} else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') {
-				game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hm3[il.impactType]);
-			} else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hmg') {
-				game.hm3.config.injuryLocations.forEach(il => il.probWeight = Tables.aimz_hmg[il.impactType]);
-			}
-			if (game.hm3.settings.get('hm3', 'missileStrikeZones') === "missile") {
-				game.hm3.config.injuryLocations.forEach(il => foundry.utils.mergeObject(il.probWeight, Tables.aimz_missile[il.impactType]));
-			}
 
 			// --- Replace overridden methods ---
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
+
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, '_calcInjury', DiceHME._calcInjury); // dice:518
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, 'createInjury', DiceHME.createInjury); // dice:409
+
 			FurnacePatching.replaceMethod(CONFIG.Combat.documentClass, 'checkWeaponBreak', HMEItem.checkWeaponBreak);	// combat:1080
-			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", DiceHME.calcInjurySeverity); // item:311
+
+			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity); // item:311
 
 			/** -----
 			 * Patch slightly modified methods
 			 * N.B. line numbers may change as the function is modified (must work from end to front)!
 			 * XXX line numbers change with any revision to the source code!!!
 			 * ----- */
-			// Maybe change penalty to some stats
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 552 - 542,
-				"data.abilities.smell.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
-				"data.abilities.smell.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
-			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 551 - 542,
-				"data.abilities.hearing.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
-				"data.abilities.hearing.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
-			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "_setupEffectiveAbilities", 550 - 542,
-				"data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - data.physicalPenalty, 0);",
-				"data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON) - game.settings.get('hm3', 'unencSenses')? data.universalPenalty : data.physicalPenalty, 0);"
-			);
+
 			// Need to defer ALL the widespread cases of EML trimming
 			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "prepareDerivedData", 358 - 291,
 				"if (['skill', 'spell', 'invocation', 'psionic'].includes(itemData.type)) {",
@@ -79,15 +60,14 @@ class HMEnhanced {
 				"let isCrit = (roll.total % 5) === 0;",
 				"let isCrit = (roll.total % 5) === 0 || (targetNum > 100 && roll.total <= targetNum -100 ) || (targetNum < 0 && roll.total >= 100 + targetNum) ;"
 			);
+
 			// Aim zones: Make allowed choice in dialog boxes
 			let source_line = "aimLocations: ['Low', 'Mid', 'High'],";
 			let aim_zones = ['Low', 'Mid', 'High'];
 			if  (['arms', 'hmg'].includes(game.settings.get('hm3', 'meleeStrikeZones'))) {
 				aim_zones.push('Arms');
-			} else if (game.settings.get('hm3', 'meleeStrikeZones') === 'hm3') {
-//				source_line = ;
 			}
-			if (game.settings.get('hm3', 'missileStrikeZones') !== 'melee') {
+			if (game.settings.get('hm3', 'missileStrikeZones') == 'missile') {
 				aim_zones.push('Low-Missile');
 				aim_zones.push('Mid-Missile');
 				aim_zones.push('High-Missile');
@@ -97,20 +77,17 @@ class HMEnhanced {
 				`aimLocations: ${aim_zones},`
 			);
 			//
-		}
-
-		ready() {}
-}
-
-new HMEnhanced();
+		});
 
 Hooks.on('renderHarnMasterCharacterSheet', (actorSheet, html, data) => {
 		HMEActor.actorRenderFix(actorSheet, html, data);
+		reEnableListeners(actorSheet, html);
 		return true;
 });
 
 Hooks.on('renderHarnMasterCreatureSheet', (actorSheet, html, data) => {
 		HMEActor.actorRenderFix(actorSheet, html, data);
+		reEnableListeners(actorSheet, html);
 		return true;
 });
 
@@ -163,7 +140,7 @@ Hooks.on('hm3.preHealingRoll', (stdRollData, actor, injury) => {
 Hooks.on('hm3.preShockRoll', (stdRollData, actor) => {
 		// change number of dice
 
-		game.hm3.DiceHM3.d6StdRoll(stdRollData).then(resut => {
+		game.hm3.DiceHM3.d6StdRoll(stdRollData).then(result => {
 			// always run custom display macros
 			actor.runCustomMacro(result);
 			// often continue with post-roll hooks
@@ -173,7 +150,7 @@ Hooks.on('hm3.preShockRoll', (stdRollData, actor) => {
 });
 
 Hooks.on('hm3.preStumbleRoll', (stdRollData, actor) => {
-		game.hm3.DiceHM3.d6StdRoll(stdRollData).then(resut => {
+		game.hm3.DiceHM3.d6StdRoll(stdRollData).then(result => {
 			// always run custom display macros
 			actor.runCustomMacro(result);
 			// often continue with post-roll hooks
@@ -183,7 +160,7 @@ Hooks.on('hm3.preStumbleRoll', (stdRollData, actor) => {
 });
 
 Hooks.on('hm3.preFumbleRoll', (stdRollData, actor) => {
-		game.hm3.DiceHM3.d6StdRoll(stdRollData).then(resut => {
+		game.hm3.DiceHM3.d6StdRoll(stdRollData).then(result => {
 			// always run custom display macros
 			actor.runCustomMacro(result);
 			// often continue with post-roll hooks
@@ -192,25 +169,5 @@ Hooks.on('hm3.preFumbleRoll', (stdRollData, actor) => {
 		return false; // abandon further process, is done.
 });
 
-Hooks.on('preCreateActor', (actor, createData, options, userId) => {
-    // only add 'Condition' skill to characters and creatures
-    if (['character', 'creature'].includes(createData.type)) {
-        game.packs
-            .get('hm3.std-skills-physical')
-            .getDocuments()
-            .then((result) => {
-                let chain = Promise.resolve()
-                result.forEach(async (ability, index) => {
-                    chain = await chain.then(async () => {
-                        if (['Condition'].includes(ability.name)) {
-                            const updateData = { items: [ ability.data ] };
-                            await actor.data.update(updateData);
-                        }
-                    });
-                });
-            });
-    }
-});
-
-Hooks.on('hm3.onActorPrepareBaseData', (actor) => HMEActor.prepareBaseData(actor) );
+// Hooks.on('hm3.onActorPrepareBaseData', (actor) => HMEActor.prepareBaseData(actor) );
 Hooks.on('hm3.onActorPrepareDerivedData', (actor) => HMEActor.prepareDerivedData(actor) );

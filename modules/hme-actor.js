@@ -1,5 +1,27 @@
-
+/**
+ * Mechanisms to override parts of the HarnMasterActor class,
+ * and HTML fixups to the actor sheets
+ *
+ * This invovles adding the following flags to each actor (scope = 'hm-enhanced'):
+ *
+ */
 export class HMEActor {
+
+	/**
+	 * Just after the base system did it
+	 */
+	static prepareDerivedData(actor) {
+		const actorData = actor.data;
+		const data = actorData.data;
+		const eph = data.eph;
+
+		if (game.settings.get('hm3', 'unencSenses') && data.abilities.smell.effective != eph.smell) {
+			data.abilities.eyesight.effective = Math.max(Math.round(eph.eyesight + Number.EPSILON - data.universalPenalty), 0);
+			data.abilities.hearing.effective = Math.max(Math.round(eph.hearing + Number.EPSILON - data.universalPenalty), 0);
+			data.abilities.smell.effective = Math.max(Math.round(eph.smell + Number.EPSILON - data.universalPenalty), 0);
+		}
+	}
+
 	static async skillDevRoll(item, actor = this) {
         const result = await game.hm3.DiceHM3.sdrRoll(item.data);
 
@@ -66,6 +88,15 @@ export class HMEActor {
 			"data.improveFlag": false,
 			"data.masteryLevel": item.data.data.masteryLevel + 1
 		});
+	}
+
+	static actorRenderFix(actorSheet, html, data) {
+		const actor = actorSheet.actor;
+		const origData = data;
+		data = origData.data;
+
+		// over-arching things
+		// and changed columns
 	}
 
 }

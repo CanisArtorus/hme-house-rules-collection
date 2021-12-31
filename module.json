@@ -3,7 +3,7 @@
   "name": "hme-house-rules-collection",
   "title": "HarnMaster Enhanced, and other House Rules",
   "description": "Adds many optional features to the HarnMaster system. Highly configurable.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "canis",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.7",

@@ -1,6 +1,6 @@
 export const Tables {};
 Tables.arms_zone = {
-		"custom": 1, "skull": 10, "face": 50, "neck": 20, "shoulder": 70, "upperarm": 60, "elbow": 30, "forearm": 150, "hand": 100, "thorax": 20, "abdomen": 10, "groin": 0, "hip": 10, "thigh": 0, "knee": 0, "calf": 0, "foot": 0, "wing": 60, "tentacle": 30, "tail": 0
+		"custom": 1, "skull": 10, "face": 50, "neck": 20, "shoulder": 70, "upperarm": 60, "elbow": 30, "forearm": 150, "hand": 100, "thorax": 20, "abdomen": 10, "groin": 0, "hip": 10, "thigh": 0, "knee": 0, "calf": 0, "foot": 0, "wing": 60, "tentacle": 140, "tail": 0
 };
 
 Tables.aimz_hm3 = {
