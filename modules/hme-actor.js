@@ -20,6 +20,10 @@ export class HMEActor {
 			data.abilities.hearing.effective = Math.max(Math.round(eph.hearing + Number.EPSILON - data.universalPenalty), 0);
 			data.abilities.smell.effective = Math.max(Math.round(eph.smell + Number.EPSILON - data.universalPenalty), 0);
 		}
+
+		if (game.settings.get('hm3', 'dodgeStumble')) {
+			eph.stumbleTarget = Math.max(data.abilities.agility.effective, Math.round((data.dodge / 5) + Math.EPSILON));
+		}
 	}
 
 	static async skillDevRoll(item, actor = this) {
@@ -88,6 +92,54 @@ export class HMEActor {
 			"data.improveFlag": false,
 			"data.masteryLevel": item.data.data.masteryLevel + 1
 		});
+	}
+
+	static calcShockIndex(actor) {
+		const data = actor.data.data;
+		if (game.settings.get('hm3', 'combiShockIndex')) {
+			data.shockindex.value = HMEActor.combiProb(data.endurance, data.universalPenalty);
+		} else {
+			let uniPen = data.universalPenalty;
+			if (data.endurance <= (6* uniPen)) {
+				data.shockindex.value = HarnMasterActor.normProb(data.endurance, uniPen * 3.5, uniPen);
+			} else {
+				data.shockindex.value = 100;
+			}
+		}
+	}
+
+	/**
+	 * @param {Number} y Target number
+	 * @param {number} N Number of d6 rolled
+	 */
+	static combiProb(y, N) {
+		if (y > 6 * N) {return 0;}
+		let i = 0;
+		let sum = 0;
+		let sign = -1;
+		while((y - N) > 6*i) {
+			sign = -sign;
+			sum += sign * HMEActor.combinatoric(N, i) * HMEActor.combinatoric(y - 6 * i, N);
+			i++;
+		}
+		let prob = sum / Math.pow(6, N);
+		return Math.round(prob * 100)
+	}
+
+	static combinatoric(a, b) {
+		if (b > a) {return 0;}
+		let denom = Math.max(b, a - b);
+		return _factorial(x, denom) / _factorial(x - denom, 0);
+	}
+
+	static _factorial(x, q) {
+		let result = 1;
+		let y = x;
+		while (y > q){
+			result *= y;
+			y--;
+		}
+		return result;
 	}
 
 	static actorRenderFix(actorSheet, html, data) {

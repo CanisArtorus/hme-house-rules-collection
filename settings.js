@@ -39,7 +39,7 @@ export const registerExtraSystemSettings = function() {
 		hint: "Converts the fine-grained injury points (in HMG or HME) to simple injury levels like HM3.",
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 
@@ -265,6 +265,15 @@ export const registerExtraSystemSettings = function() {
 		type: Boolean
 	});
 
+	game.settings.register('hm3', 'dodgeStumble', {
+		name: "Dodge Stumbles",
+		hint: "Use Dodge skill training to improve Stumble resistance, like in HMGold.",
+		scope: "world",
+		config: true,
+		default: true,
+		type: Boolean
+	});
+
 	game.settings.register('hm3', 'smallStealth', {
 		name: "[NYI]Size modifier to Stealth",
 		hint: "Do small things inherently hide easier than big ones?",
@@ -312,4 +321,14 @@ export const registerExtraSystemSettings = function() {
 	});
 
 */
+
+	// Misc, display
+	game.settings.register('hm3', 'combiShockIndex', {
+		name: "Combinatoric Shock Index",
+		hint: "Replace Gaussian with precise combinatoric calculation of Shock Index.",
+		scope: "world",
+		config: true,
+		default: false,
+		type: Boolean
+	});
 };

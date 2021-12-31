@@ -20,6 +20,7 @@ Hooks.once('init', async () =>  {
 
 			// --- Replace overridden methods ---
 			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "skillDevRoll", HMEActor.skillDevRoll);
+			FurnacePatching.replaceFunction(game.hm3.HarnMasterActor, "calcShockIndex", HMEActor.calcShockIndex);
 
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, '_calcInjury', DiceHME._calcInjury); // dice:518
 			FurnacePatching.replaceFunction(game.hm3.DiceHM3, 'createInjury', DiceHME.createInjury); // dice:409
