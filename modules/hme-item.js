@@ -61,12 +61,105 @@ export class HMEItem {
 		}
 	}
 
-	static calcInjurySeverity() {
-		//// TODO:
-	}
+	// static calcInjurySeverity() {
+	// 	//// TODO:
+	// }
 
-	static checkWeaponBreak() {
-		// TODO: 
+	static async checkWeaponBreak(atkWeapon, defWeapon) {
+		if(!game.settings.get('hm3', 'weaponDamage')){
+			return FurnacePatching.callOriginalFunction(CONFIG.Combat.documentClass, 'checkWeaponBreak', atkWeapon, defWeapon);
+		}
+
+    const atkToken = atkWeapon?.parent?.token;
+    const defToken = defWeapon?.parent?.token;
+
+    if (!atkWeapon || !atkToken) {
+        console.error(`Attack weapon was not specified`);
+        return {attackWeaponBroke: false, defendWeaponBroke: false};
+    }
+
+    if (!defWeapon || !defToken) {
+        console.error(`Defend weapon was not specified`);
+        return {attackWeaponBroke: false, defendWeaponBroke: false};
+    }
+
+    // Weapon Break Check
+    let atkWeaponBroke = false;
+    let defWeaponBroke = false;
+		let atkWeaponFlaw = false;
+		let defWeaponFlaw = false;
+
+    const atkWeaponQuality = atkWeapon.data.data.weaponQuality;
+    const defWeaponQuality = defWeapon.data.data.weaponQuality;
+
+    const atkBreakRoll = await new Roll('3d6').evaluate({async: true});
+    const defBreakRoll = await new Roll('3d6').evaluate({async: true});
+
+    if (atkWeaponQuality <= defWeaponQuality) {
+        // Check attacker first, then defender
+        atkWeaponBroke = atkBreakRoll.total > atkWeaponQuality;
+				atkWeaponFlaw = !atkWeaponBroke && atkBreakRoll.total == atkWeaponQuality;
+        defWeaponBroke = !atkWeaponBroke && defBreakRoll.total > defWeaponQuality;
+				defWeaponFlaw = !atkWeaponBroke && !defWeaponBroke && defBreakRoll.total == defWeaponQuality;
+    } else {
+        // Check defender first, then attacker
+        defWeaponBroke = defBreakRoll.total > defWeaponQuality;
+				defWeaponFlaw = !defWeaponBroke && defBreakRoll.total == defWeaponQuality;
+        atkWeaponBroke = !defWeaponBroke && atkBreakRoll.total > atkWeaponQuality;
+				atkWeaponFlaw = !defWeaponBroke && !atkWeaponBroke && atkBreakRoll.total == atkWeaponQuality;
+    }
+
+    const chatData = {};
+
+    const messageData = {
+        user: game.user.id,
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        sound: CONFIG.sounds.dice
+    };
+
+    const chatTemplate = "systems/hm3/templates/chat/weapon-break-card.html";	//// TODO:  update this
+
+    // Prepare and generate Attack Weapon Break chat message
+
+    chatData.tokenName = atkToken.name;
+    chatData.weaponName = atkWeapon.data.name;
+    chatData.weaponQuality = atkWeapon.data.data.weaponQuality;
+    chatData.weaponBroke = atkWeaponBroke;
+		chatData.weaponFlawed = atkWeaponFlaw;
+    chatData.rollValue = atkBreakRoll.total;
+    chatData.actorId = atkWeapon.parent;
+    chatData.title = "Attack Weapon Break Check";
+
+    let html = await renderTemplate(chatTemplate, chatData);
+
+    messageData.content = html.trim();
+    messageData.speaker = ChatMessage.getSpeaker({token: defToken});
+    messageData.roll = atkBreakRoll;
+
+    const messageOptions = {};
+
+    await ChatMessage.create(messageData, messageOptions)
+
+    // Prepare and generate Defend Weapon Break chat message
+
+    chatData.tokenName = defToken.name;
+    chatData.weaponName = defWeapon.data.name;
+    chatData.weaponQuality = defWeapon.data.data.weaponQuality;
+    chatData.weaponBroke = defWeaponBroke;
+		chatData.weaponFlawed = defWeaponFlaw;
+    chatData.rollValue = defBreakRoll.total;
+    chatData.actorId = defWeapon.parent;
+    chatData.title = "Defend Weapon Break Check";
+
+    html = await renderTemplate(chatTemplate, chatData);
+
+    messageData.content = html.trim();
+    messageData.speaker = ChatMessage.getSpeaker({token: defToken});
+    messageData.roll = defBreakRoll;
+
+    await ChatMessage.create(messageData, messageOptions);
+
+    return {attackWeaponBroke: atkWeaponBroke, defendWeaponBroke: defWeaponBroke, attackWeaponFlawed: atkWeaponFlaw, defendWeaponFlawed: defWeaponFlaw};
 	}
 
 	static armorlocationRenderFix(itemSheet, html, data) {

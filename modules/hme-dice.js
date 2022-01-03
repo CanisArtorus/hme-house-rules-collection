@@ -192,7 +192,7 @@ export class DiceHME {
 					isKillShot: false,
 					shockRoll: 0
 			};
-
+			// TODO: 
 		}
 
 }

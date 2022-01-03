@@ -27,7 +27,7 @@ Hooks.once('init', async () =>  {
 
 			FurnacePatching.replaceMethod(CONFIG.Combat.documentClass, 'checkWeaponBreak', HMEItem.checkWeaponBreak);	// combat:1080
 
-			FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity); // item:311
+			// FurnacePatching.replaceFunction(game.hm3.HarnMasterItem, "calcInjurySeverity", HMEItem.calcInjurySeverity); // item:308
 
 			/** -----
 			 * Patch slightly modified methods
@@ -36,30 +36,18 @@ Hooks.once('init', async () =>  {
 			 * ----- */
 
 			// Need to defer ALL the widespread cases of EML trimming
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, "prepareDerivedData", 358 - 291,
-				"if (['skill', 'spell', 'invocation', 'psionic'].includes(itemData.type)) {",
-				"if (['skill', 'spell', 'invocation', 'psionic'].includes(itemData.type) && ! game.settings.get('hm3', 'extremeEML')) {"
-			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 619 - 569,
-				"itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);",
-				"if(! game.settings.get('hm3', 'extremeEML') { itemData.defenseMasteryLevel = Math.max(itemData.defenseMasteryLevel || 5, 5);}"
-			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 618 - 569,
-				"itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel || 5, 5);",
-				"if(! game.settings.get('hm3', 'extremeEML') { itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel || 5, 5);}"
-			);
-			FurnacePatching.patchMethod(game.hm3.HarnMasterActor, '_setupWeaponData', 591 - 569,
-				"itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel, 5);",
-				"if(! game.settings.get('hm3', 'extremeEML') { itemData.attackMasteryLevel = Math.max(itemData.attackMasteryLevel, 5); }"
-			);
-			FurnacePatching.patchmethod(CONFIG.Combat.documentClass, 'blockResume', 952 - 857,
+      FurnacePatching.patchMethod(game.hm3.HarnMasterActor, 'prepareDerivedData', 405 - 307,
+        "this._setMinEML_AML_DML();",
+        "if(!game.settings.get('hm3', 'extremeEML')) {this._setMinEML_AML_DML();}"
+      );
+			FurnacePatching.patchMethod(CONFIG.Combat.documentClass, 'blockResume', 952 - 857,
 				"effDML = Math.max(Math.round(effDML/2), 5);",
 				"effDML = effDML >= 0 ? Math.round(effDML/2) : effDML * 2;"
 			);
-			// And then do the critical determination
-			FurnacePatching.patchMethod(game.hm3.DiceHM3, 'rollTest', 1195 - 1184,
+      // And then do the critical determination last
+			FurnacePatching.patchMethod(game.hm3.DiceHM3, 'rollTest', 1198 - 1184,
 				"let isCrit = (roll.total % 5) === 0;",
-				"let isCrit = (roll.total % 5) === 0 || (targetNum > 100 && roll.total <= targetNum -100 ) || (targetNum < 0 && roll.total >= 100 + targetNum) ;"
+				"let isCrit = (roll.total % 5) === 0 || (baseTargetNum > 100 && roll.total <= baseTargetNum -100 ) || (baseTargetNum < 0 && roll.total >= 100 + baseTargetNum) ;"
 			);
 
 			// Aim zones: Make allowed choice in dialog boxes
@@ -77,6 +65,19 @@ Hooks.once('init', async () =>  {
 				source_line,
 				`aimLocations: ${aim_zones},`
 			);
+      FurnacePatching.patchMethod(game.hm3.DiceHM3, 'missileAttackDialog', 976 - 970,
+        "aimLocations: ['High', 'Mid', 'Low'],",
+        "aimLocations: game.settings.get('hm3', 'missileStrikeZones') === 'missile' ? ['High-Missile', 'Mid-Missile', 'Low-Missile'] : ['High', 'Mid', 'Low'],"
+      );
+      FurnacePatching.patchMethod(game.hm3.DiceHM3, 'missileAttackDialog', 977 - 970,
+        "defaultAim: 'Mid',",
+        "defaultAim: 'game.settings.get('hm3', 'missileStrikeZones') === 'missile' ? Mid-Missile' : 'Mid',"
+      );
+      // Unused function, presume deprecated.
+      // FurnacePatching.patchMethod(game.hm3.DiceHM3, 'hitLocation', 1244 - 1243,
+      //   "const hlAim = aim === 'high' || aim === 'low' ? aim : 'mid';",
+      //   "const hlAim = aim === ''"
+      // );
 			//
 		});
 

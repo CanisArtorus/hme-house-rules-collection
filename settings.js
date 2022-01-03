@@ -284,6 +284,15 @@ export const registerExtraSystemSettings = function() {
 	});
 
 	// Combat options
+		game.settings.register('hm3', 'weaponDamage', {
+			name: "Weapon Semi-Break",
+			hint: "Near-breaks weaken the weapon.",
+			scope: "world",
+			config: true,
+			default: false,
+			type: Boolean
+		});
+
 /*	game.settings.register('hm3', '', {
 		name: "",
 		hint: "",
