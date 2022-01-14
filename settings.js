@@ -150,8 +150,8 @@ export const registerExtraSystemSettings = function() {
 	});
 
 	game.settings.register('hm3', 'bleedingVersion', {
-		name: "Bloodloss version (Requires Bleeding to be turned on)",
-		hint: "How fast does Bloodloss progress?",
+		name: "Bloodloss version",
+		hint: "How fast does Bloodloss progress? (Requires Bleeding to be turned on)",
 		scope: "world",
 		config: true,
 		default: "rounds",

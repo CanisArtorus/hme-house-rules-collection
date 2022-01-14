@@ -1,3 +1,5 @@
+import { Tables } from './modules/data-lut.js';
+
 export class DiceHME {
 
 	static _calcSubLocation(list) {
@@ -41,7 +43,7 @@ export class DiceHME {
 			foundry.utils.mergeObject(injuryData, game.system.model.Item.injury);
 
 			injuryData.injuryLevel = result.injuryLevel;
-			injuryData.severity = game.hm3.HarnMasterItem.calcInjurySeverity(injuryLevel).slice(0,1);
+			injuryData.severity = result.injuryLevelText.slice(0,1);
 
 			injuryData.notes = `Aspect: ${result.aspect}`;
 
@@ -69,10 +71,6 @@ export class DiceHME {
 			 * @param {Object} dialogOptions
 			 */
 			static _calcInjury(location, impact, aspect, addToCharSheet, aim, dialogOptions) {
-					const enableAmputate = game.settings.get('hm3', 'amputation');
-					const enableBloodloss = game.settings.get('hm3', 'bloodloss');
-					const enableLimbInjuries = game.settings.get('hm3', 'limbInjuries');
-
 					const genFaceParts = game.settings.get('hm3', 'faceSubZones');
 					const genFingers = game.settings.get('hm3', 'handFingers');
 					let isEye = false;
@@ -159,26 +157,18 @@ export class DiceHME {
 					// and other flags
 					foundry.utils.mergeObject(result, _lutWound(result.effectiveImpact, aspect, armorLocationData, isEye));
 
-					// Optional Rule - Bloodloss (Combat 14)
-					result.isBleeder = enableBloodloss ? result.isBleeder : false;
-
-					// Optional Rule - Limb Injuries (Combat 14)
-					if (armorLocationData.data.isFumble) {
-							result.isFumble = enableLimbInjuries && result.isFumble;
-							result.isFumbleRoll = enableLimbInjuries ? result.isFumbleRoll : false;
-					}
-
-					// Optional Rule - Limb Injuries (Combat 14)
-					if (armorLocationData.data.isStumble) {
-							result.isStumble = enableLimbInjuries && result.isStumble;
-							result.isStumbleRoll = enableLimbInjuries ? result.isStumbleRoll : false;
-					}
-
 					return result;
 			}
 
 		static _lutWound(eI, aspect, armorLocationData, isEye = false) {
-			const woundType = isEye ? isEye : armorLocationData.data.impactType;
+			const enableAmputate = game.settings.get('hm3', 'amputation');
+			const enableBloodloss = game.settings.get('hm3', 'bloodloss');
+			const enableLimbInjuries = game.settings.get('hm3', 'limbInjuries');
+
+			const tableSource = game.settings.get('hm3','injuryTable');
+			// const woundType = isEye ? isEye : armorLocationData.data.impactType;
+			const woundType = isEye || // armorLocationData.getFlag('hm-enhanced',)
+				armorLocationData.data.damagetype || armorLocationData.data.impactType;
 			const result = {
 					aspect: aspect,
 					injuryLevel: 0,
@@ -192,7 +182,65 @@ export class DiceHME {
 					isKillShot: false,
 					shockRoll: 0
 			};
-			// TODO: 
+			let injuryCode = {'il': 'NA', "shock": 0, 'f':0, 's':0, 'kill': 0, 'amp': 0, 'bleed': 0};
+			let referenceRow = {'Other':{1: injuryCode}};
+			if( tableSource === 'artorus'){
+				if (Tables.injuriesArtorus[woundType] ) {
+					referenceRow = Tables.injuriesArtorus[woundType];
+				} else {
+					referenceRow = Tables.injuriesEnhanced[woundType];
+				}
+			} else if( tableSource === 'enhanced') {
+				referenceRow = Tables.injuriesEnhanced[woundType];
+			}
+
+			let dmgAspect = aspect;
+			// TODO: massage extension damage types
+			const refColumn = referenceRow[dmgAspect];
+			if(!refColumn){
+				// Sub-location tables do not list the aspects they don't apply to.
+				// Go use the parent location injury table in that case.
+				const parentLocation = woundType.split('-')[0];
+				if (parentLocation != woundType){
+					return _lutWound(eI, aspect, armorLocationData, parentLocation);
+				}
+				// // TODO: fallback table or basic injury bands
+				return result;
+			}
+			for( let i = eI; i > 0; i--){
+				if(refColumn[i]){
+					injuryCode = refColumn[i];
+					break;
+				}
+			}
+			// if(injuryCode.il === 'NA'){
+			// 	return result;
+			// }
+			// Should never be NA & should always be a valid letter+digit code
+			result.injuryLevel = new Number(injuryCode.il.slice(1,2));
+			result.injuryLevelText = injuryCode.il;
+			//if(game.settings.get('hm3', 'bleedingLevels')){
+				result.isBleeder = enableBloodloss && injuryCode.bleed;
+			//} else {}
+			if(enableLimbInjuries){
+				if( // game.settings.get('hm3', 'variableFumble') &&
+				 injuryCode.f > 0){
+					result.isFumbleRoll = injuryCode.f;
+				} else if (injuryCode.f == -1) {
+					result.isFumble = true;
+				}
+				if( // game.settings.get('hm3', 'variableStumble')
+					injuryCode.s > 0){
+					result.isStumbleRoll = injuryCode.s;
+				} else if (injuryCode.s == -1){
+					result.isStumble = true;
+				}
+			}
+			result.isAmputate = enableAmputate && injuryCode.amp;
+			result.isKillShot = injuryCode.kill;
+			result.shockRoll = injuryCode.shock;
+
+			return result;
 		}
 
 }
