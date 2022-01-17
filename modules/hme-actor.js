@@ -34,7 +34,7 @@ export class HMEActor {
 					if(spType == "double") {
             await item.update({
             	"data.improveFlag": false,
-              "data.masteryLevel": item.data.data.masteryLevel + (result.sdrIncr === 2 ? 2 : 1)
+              "data.masteryLevel": +(item.data.data.masteryLevel) + (result.sdrIncr === 2 ? 2 : 1)
           	});
 					} else if (result.sdrIncr === 1) {
 						// is a base skill, so inherit it
@@ -44,7 +44,7 @@ export class HMEActor {
 						// is specialty
 						await item.update({
 							"data.improveFlag": false,
-							"data.masteryLevel": item.data.data.masteryLevel + 1
+							"data.masteryLevel": +(item.data.data.masteryLevel) + 1
 						});
 						if (spType === "splash") {
 							// fetch root skill to splash - without assuming format
@@ -84,13 +84,13 @@ export class HMEActor {
 			if (['skill', 'spell', 'invocation', 'psionic'].includes((it.data.type)) {
 				let testSpec = it.data.name.match(/\(([^\)]+)\)/);
 				if (testSpec?.includes(testName)) {
-					await it.update({"data.masteryLevel": it.data.data.masteryLevel + 1});
+					await it.update({"data.masteryLevel": +(it.data.data.masteryLevel) + 1});
 				}
 			}
 		});
 		await item.update({
 			"data.improveFlag": false,
-			"data.masteryLevel": item.data.data.masteryLevel + 1
+			"data.masteryLevel": +(item.data.data.masteryLevel) + 1
 		});
 	}
 
