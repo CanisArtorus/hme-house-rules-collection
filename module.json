@@ -3,10 +3,10 @@
   "name": "hme-house-rules-collection",
   "title": "HarnMaster Enhanced, and other House Rules",
   "description": "Adds many optional features to the HarnMaster system. Highly configurable.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "canis",
-  "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "0.8.7",
+  "minimumCoreVersion": "0.9.0",
+  "compatibleCoreVersion": "0.9",
   "system": ["hm3"],
   "esmodules": [
     "./modules/Patches.js",
@@ -17,5 +17,5 @@
   "languages": [],
   "url": "https://github.com/CanisArtorus/hme-house-rules-collection",
   "manifest": "https://raw.githubusercontent.com/CanisArtorus/hme-house-rules-collection/master/module.json",
-  "download": ""
+  "download": "https://github.com/CanisArtorus/hme-house-rules-collection/archive/refs/heads/main.zip"
 }
