@@ -3,14 +3,19 @@
   "name": "hme-house-rules-collection",
   "title": "HarnMaster Enhanced, and other House Rules",
   "description": "Adds many optional features to the HarnMaster system. Highly configurable.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "canis",
-  "minimumCoreVersion": "0.9.0",
-  "compatibleCoreVersion": "0.9",
+  "minimumCoreVersion": "0.9",
+  "compatibleCoreVersion": "0.9.242",
   "system": ["hm3"],
   "esmodules": [
     "./modules/Patches.js",
-    "./hme-house-rules-collection.js"
+    "./hme-house-rules-collection.js",
+    "./settings.js",
+    "./modules/hme-item.js",
+    "./modules/hme-actor.js",
+    "./modules/hme-dice.js",
+    "./modules/data-lut.js"
   ],
   "styles": [],
   "packs": [],
