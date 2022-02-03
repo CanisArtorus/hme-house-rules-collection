@@ -10,7 +10,7 @@
   "system": ["hm3"],
   "esmodules": [
     "./modules/Patches.js",
-    "./hm-enhanced.js"
+    "./hme-house-rules-collection.js"
   ],
   "styles": [],
   "packs": [],
